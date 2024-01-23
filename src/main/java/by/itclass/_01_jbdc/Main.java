@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
        // var datasource = new DriverManagerDataSource();
         var datasource = new SimpleDriverDataSource();
+
         datasource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
         datasource.setUrl("jdbc:mysql://localhost:3306/po_2211");
         datasource.setUsername("root");
