@@ -6,7 +6,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 public class Main {
     public static void main(String[] args) {
-       // var datasource = new DriverManagerDataSource();
+        // var datasource = new DriverManagerDataSource();
         var datasource = new SimpleDriverDataSource();
 
         datasource.setDriverClass(com.mysql.cj.jdbc.Driver.class);
@@ -16,16 +16,16 @@ public class Main {
 
         var jdbcTemplate = new JdbcTemplate(datasource);
 
-        var users =jdbcTemplate.query("SELECT * FROM user", new UserRowMapping());
+        var users = jdbcTemplate.query("SELECT * FROM user", new UserRowMapping());
         users.forEach(System.out::println);
 
         System.out.println("================");
-        jdbcTemplate.query("SELECT * FROM user WHERE id > ?", new UserRowMapping(),new Object[]{3} )
+        jdbcTemplate.query("SELECT * FROM user WHERE id > ?", new UserRowMapping(), new Object[]{3})
                 .forEach(System.out::println);
 
         System.out.println("================");
         jdbcTemplate.update("UPDATE user SET name = ? WHERE id = ?", "Vasy", 3);
-        jdbcTemplate.query("SELECT * FROM user", new UserRowMapping() )
+        jdbcTemplate.query("SELECT * FROM user", new UserRowMapping())
                 .forEach(System.out::println);
     }
 }

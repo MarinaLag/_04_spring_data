@@ -9,45 +9,38 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        // получаем контекст - который из AppConfig, получит описание всех Bean
         var ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-
+        // создадим repository - который будет работать с нашими методами
         var repository = ctx.getBean(AirplaneRepository.class);
+        var airbus = ctx.getBean("airbus360",Airplane.class);
 
-    /*    System.out.println("=========boeing747===========");
-        var airplane = ctx.getBean("boeing747",Airplane.class);
-        System.out.println("We just created: " + airplane);
 
-        airplane = repository.save(airplane);
-        System.out.println("Airplane after save: " + airplane);
+        // "boeing747" имя должно совпадать с именем метода Bean (в AppConfig) !!!!
+        System.out.println("=========boeing747===========");
+        // создали id = null (0)
+        var boeing = ctx.getBean("boeing747",Airplane.class);
+        System.out.println("1 We just created: " + boeing);
+        // сохранить в БД и получим поле id
+        boeing = repository.save(boeing);
+        System.out.println("2 Airplane after save: " + boeing);
+        // изменили значение кол-во мест
+        boeing.setPlace(250);
+        // после изменения сохраняем
+        boeing = repository.save(boeing);
+        System.out.println("3 Airplane after update: " + boeing);
 
-        airplane.setPlace(250);
-        airplane = repository.save(airplane);
-        System.out.println("Airplane after update: " + airplane);
 
         System.out.println("=========airbus===========");
-        var airbus = ctx.getBean("airbus360",Airplane.class);
-        System.out.println("We just created: " + airbus);
+        System.out.println("1 We just created: " + airbus);
 
         airbus = repository.save(airbus);
-        System.out.println("Airplane after save: " + airbus);
+        System.out.println("2 Airplane after save: " + airbus);
 
         airbus.setPlace(400);
         airbus = repository.save(airbus);
-        System.out.println("Airplane after update: " + airbus);
+        System.out.println("3 Airplane after update: " + airbus);
 
-     */
-        var boeing = repository.findByModelLike("Boe%");
-        var airplane = repository.findByModelLikeAndPlace("air%", 350);
-        var airplane1 = repository.findByPlaceBetween(300, 500);
-        System.out.println(boeing);
-        System.out.println(airplane);
-        System.out.println(airplane1);
-
-        List<Airplane> planes = repository.findByPlaceBetween(200, 500);
-        planes.forEach(System.out::println);
-        System.out.println("--------------");
-        planes =repository.allPlaces();
-        planes.forEach(System.out::println);
 
     }
 }

@@ -20,8 +20,9 @@ public class Airplane {
     private String model;
     @NonNull
     private int place;
-    @OneToMany
-    @JoinColumn(name = "airplaneId")
+
+    @OneToMany  // в одном самолете много пассажиров
+    @JoinColumn(name = "airplane_id")
     private List<Passenger> passengers;
 
     @Autowired
