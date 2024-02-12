@@ -19,12 +19,13 @@ public class Main {
         var users = jdbcTemplate.query("SELECT * FROM user", new UserRowMapping());
         users.forEach(System.out::println);
 
-        System.out.println("================");
+        System.out.println("================"); //  по id - 3
         jdbcTemplate.query("SELECT * FROM user WHERE id > ?", new UserRowMapping(), new Object[]{3})
                 .forEach(System.out::println);
 
-        System.out.println("================");
+        System.out.println("================");  // меняем имя  у  id - 3
         jdbcTemplate.update("UPDATE user SET name = ? WHERE id = ?", "Vasy", 3);
+        // просмотрим всех user после изменения
         jdbcTemplate.query("SELECT * FROM user", new UserRowMapping())
                 .forEach(System.out::println);
     }
